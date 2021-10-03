@@ -1,8 +1,10 @@
 package io.github.monull.catan.command
 
+import io.github.monull.catan.CatanManager
 import io.github.monull.catan.plugin.CatanPlugin
 import io.github.monull.dev.command.PluginKommand
 import io.github.monull.dev.math.toRadians
+import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.inventory.ItemStack
@@ -10,9 +12,9 @@ import org.bukkit.util.Vector
 import kotlin.math.sqrt
 
 object CatanCommand {
-    fun register(kommand: PluginKommand, plugin: CatanPlugin) {
+    fun register(kommand: PluginKommand, plugin: CatanPlugin, catanManager: CatanManager) {
         kommand.apply {
-            register("catan") {
+            register("catan", "ct") {
                 val colors = dynamic { _, input ->
                     listOf("red", "yellow", "blue", "green").firstOrNull { it == input }
                 }.apply {
@@ -29,7 +31,9 @@ object CatanCommand {
                             x -= count / 2
                         }
 
-                        plugin.server.scheduler.runTaskTimer(plugin, HexagonScheduler(loc, count), 0L, 1L)
+                        val playerLoc = player.location
+
+                        plugin.server.scheduler.runTaskTimer(plugin, HexagonScheduler(catanManager, loc, count, playerLoc), 0L, 1L)
                     }
                 }
                 then("supply") {
@@ -75,14 +79,60 @@ object CatanCommand {
     }
 }
 
-class HexagonScheduler(val loc: Location, val count: Int) : Runnable {
+class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: Int, val centerLoc: Location) : Runnable {
     val vec = Vector(1.0, 0.0, 0.0)
     private var ticks = 0
+    private var centerLocs = arrayListOf<Location>()
 
     override fun run() {
         ticks++
         when (ticks) {
             1 -> {
+                val centerLoc = centerLoc.clone()
+                centerLoc.apply {
+                    z += count * sqrt(3.0) * 2
+                }
+                repeat(5) {
+                    centerLocs += centerLoc.clone()
+                    if (it <= 3) centerLoc.z -= count * sqrt(3.0)
+                }
+
+                val left = centerLoc.clone().apply {
+                    z += count * sqrt(3.0) / 2
+                    x -= count / 2 * 3
+                }
+                val right = centerLoc.clone().apply {
+                    z += count * sqrt(3.0) / 2
+                    x += count / 2 * 3
+                }
+
+                repeat(4) {
+                    centerLocs += left.clone()
+                    centerLocs += right.clone()
+                    if (it <= 2) {
+                        left.z += count * sqrt(3.0)
+                        right.z += count * sqrt(3.0)
+                    }
+                }
+
+                left.apply {
+                    z -= count * sqrt(3.0) / 2
+                    x -= count / 2 * 3
+                }
+                right.apply {
+                    z -= count * sqrt(3.0) / 2
+                    x += count / 2 * 3
+                }
+
+                repeat(3) {
+                    centerLocs += left.clone()
+                    centerLocs += right.clone()
+                    if (it <= 1) {
+                        left.z -= count * sqrt(3.0)
+                        right.z -= count * sqrt(3.0)
+                    }
+                }
+
                 repeat(6) {
                     repeat(count) {
                         loc.block.type = Material.STONE
@@ -154,6 +204,16 @@ class HexagonScheduler(val loc: Location, val count: Int) : Runnable {
                     z -= count * sqrt(3.0) / 2
                 }
             }
+            24 -> randomMap()
         }
+    }
+
+    private fun randomMap() {
+        centerLocs.forEach {
+            if (it.distance(centerLoc) > 8) {
+                manager.registerRegion(it)
+            }
+        }
+        manager.registerDessert(centerLoc)
     }
 }
