@@ -6,6 +6,9 @@ import org.bukkit.Location
 import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
+import org.bukkit.entity.EntityType
+import org.bukkit.entity.Sheep
+import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
@@ -198,19 +201,92 @@ abstract class CatanStructure {
                         getRelative(-5, 0, -4).type = Material.YELLOW_WOOL
                     }
                 }
+                7 -> task?.cancel()
             }
         }
     }
 
     class SheepStructure : CatanStructure() {
+        override var task: BukkitTask? = null
+        private var ticks = 0
+
         override fun createStructure(manager: CatanManager, location: Location) {
             fillBlocks(manager, location, Material.GRASS_BLOCK)
+        }
+
+        override fun buildStructure(manager: CatanManager, location: Location) {
+            ticks++
+            when (ticks) {
+                1 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(2, 0, -2).apply {
+                        listOf(0, -1, -2, -3, -4, -5, -6).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(-4, 0, -1).apply {
+                        listOf(0, 1, 2, 3, 4).forEach {
+                            getRelative(0, 0, it).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(-3, 0, 3).apply {
+                        listOf(0, 1, 2).forEach {
+                            getRelative(0, 0, it).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(-2, 0, 5).apply {
+                        type = Material.OAK_FENCE
+                    }
+                    location.block.getRelative(-2, 0, 6).apply {
+                        listOf(0, 1, 2, 3, 4, 5, 6, 7).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(5, 0, 5).apply {
+                        type = Material.OAK_FENCE
+                    }
+                    location.block.getRelative(6, 0, 5).apply {
+                        listOf(0, -1, -2, -3).forEach {
+                            getRelative(0, 0, it).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(5, 0, 2).apply {
+                        listOf(0, -1, -2).forEach {
+                            getRelative(0, 0, it).type = Material.OAK_FENCE
+                        }
+                    }
+                    location.block.getRelative(4, 0, 0).apply {
+                        type = Material.OAK_FENCE
+                    }
+                    location.block.getRelative(2, 0, -1).apply {
+                        listOf(0, 1, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_FENCE
+                        }
+                    }
+                }
+                2 -> {
+                    repeat(3) {
+                        location.world.spawnEntity(location, EntityType.SHEEP, CreatureSpawnEvent.SpawnReason.CUSTOM)
+                    }
+                }
+                3 -> task?.cancel()
+            }
         }
     }
 
     class ForestStructure : CatanStructure() {
+        override var task: BukkitTask? = null
+        private var ticks = 0
+
         override fun createStructure(manager: CatanManager, location: Location) {
             fillBlocks(manager, location, Material.GRASS_BLOCK)
+        }
+
+        override fun buildStructure(manager: CatanManager, location: Location) {
+            ticks++
+            when (ticks) {
+
+            }
         }
     }
 
