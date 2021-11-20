@@ -2,8 +2,8 @@ package io.github.monull.catan.command
 
 import io.github.monull.catan.CatanManager
 import io.github.monull.catan.plugin.CatanPlugin
-import io.github.monull.dev.command.PluginKommand
-import io.github.monull.dev.math.toRadians
+import io.github.monun.kommand.PluginKommand
+import io.github.monun.tap.math.toRadians
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -22,9 +22,21 @@ object CatanCommand {
                         suggest(listOf("red", "yellow", "blue", "green"))
                     }
                 }
+                then("start") {
+                    executes {
+                        catanManager.startProcess()
+                    }
+                }
+                then("stop") {
+                    executes {
+                        catanManager.stopProcess()
+                    }
+                }
                 then("map") {
                     requires { playerOrNull != null }
                     executes {
+                        catanManager.resetMap()
+
                         val count = 10
                         val loc = player.location.apply {
                             z -= count * sqrt(3.0) / 2 * 3
@@ -134,8 +146,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                 }
 
                 repeat(6) {
+                    manager.registerClickableGround(loc)
+                    loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
-                        loc.block.type = Material.STONE
+                        if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -147,8 +161,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                 }
 
                 repeat(6) {
+                    manager.registerClickableGround(loc)
+                    loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
-                        loc.block.type = Material.STONE
+                        if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -166,8 +182,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                 }
 
                 repeat(6) {
+                    manager.registerClickableGround(loc)
+                    loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
-                        loc.block.type = Material.STONE
+                        if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -185,8 +203,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                 }
 
                 repeat(6) {
+                    manager.registerClickableGround(loc)
+                    loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
-                        loc.block.type = Material.STONE
+                        if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())

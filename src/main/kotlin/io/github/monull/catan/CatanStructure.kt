@@ -7,7 +7,6 @@ import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace
 import org.bukkit.entity.EntityType
-import org.bukkit.entity.Sheep
 import org.bukkit.event.entity.CreatureSpawnEvent
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
@@ -285,7 +284,315 @@ abstract class CatanStructure {
         override fun buildStructure(manager: CatanManager, location: Location) {
             ticks++
             when (ticks) {
+                1 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(0, 0, 1).apply {
+                        val listX = listOf(0, 1, 2)
+                        val listZ = listOf(0, -1, -2, -3, -4)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.STONE
+                            }
+                        }
+                    }
+                    location.block.getRelative(-1, 0, 0).apply {
+                        type = Material.STONE
+                        getRelative(0, 0, -1).type = Material.STONE
+                        getRelative(0, 0, -2).type = Material.STONE
+                    }
+                    location.block.getRelative(0, 0, -3).apply {
+                        type = Material.STONE
+                        getRelative(1, 0, 0).type = Material.STONE
+                        getRelative(2, 0, 0).type = Material.STONE
+                    }
+                    location.block.getRelative(3, 0, 0).apply {
+                        val listX = listOf(0, 1)
+                        val listZ = listOf(0, -1, -2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.STONE
+                            }
+                        }
+                    }
+                    location.block.getRelative(1, 0, 2).apply {
+                        type = Material.STONE
+                        getRelative(1, 0, 0).type = Material.STONE
+                    }
+                    location.block.getRelative(3, 0, 1).type = Material.STONE
+                    location.block.getRelative(0, 0, 4).type = Material.OAK_LOG
+                    location.block.getRelative(-4, 0, 1).type = Material.OAK_LOG
+                    location.block.getRelative(2, 0, -5).type = Material.OAK_LOG
+                    location.block.getRelative(6, 0, 1).type = Material.OAK_LOG
+                }
+                2 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(1, 0, 0).apply {
+                        val listX = listOf(0, 1, 2)
+                        val listZ = listOf(0, -1, -2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.STONE
+                            }
+                        }
+                    }
+                    location.block.getRelative(0, 0, -1).type = Material.STONE
+                    location.block.type = Material.STONE
+                    location.block.getRelative(-1, 0, 0).type = Material.STONE
+                    location.block.getRelative(0, 0, 1).apply {
+                        listOf(0, 1, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.STONE
+                        }
+                    }
+                    location.block.getRelative(0, 0, 4).type = Material.OAK_LOG
+                    location.block.getRelative(-4, 0, 1).type = Material.OAK_LOG
+                    location.block.getRelative(2, 0, -5).type = Material.OAK_LOG
+                    location.block.getRelative(6, 0, 1).type = Material.OAK_LOG
+                }
+                3 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(1, 0, 3).apply {
+                        listOf(0, -1, -2).forEach { dx ->
+                            listOf(0, 1, 2).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(0, 0, 4).apply {
+                        type = Material.OAK_LOG
+                        val dx = listOf(-2, 0, 2)
+                        dx.forEach { dx ->
+                            getRelative(dx, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, dx).type = Material.OAK_LEAVES
+                        }
+                    }
+                    location.block.getRelative(-3, 0, 0).apply {
+                        listOf(0, -1, -2).forEach { dx ->
+                            listOf(0, 1, 2).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(-4, 0, 1).apply {
+                        type = Material.OAK_LOG
+                        val dx = listOf(-2, 0, 2)
+                        dx.forEach { dx ->
+                            getRelative(dx, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, dx).type = Material.OAK_LEAVES
+                        }
+                    }
+                    location.block.getRelative(3, 0, -6).apply {
+                        listOf(0, -1, -2).forEach { dx ->
+                            listOf(0, 1, 2).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(2, 0, -5).apply {
+                        type = Material.OAK_LOG
+                        val dx = listOf(-2, 0, 2)
+                        dx.forEach { dx ->
+                            getRelative(dx, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, dx).type = Material.OAK_LEAVES
+                        }
+                    }
+                    location.block.getRelative(6, 0, 1).apply {
+                        type = Material.OAK_LOG
+                        val dx = listOf(-1, 0, 1)
+                        dx.forEach { dx ->
+                            getRelative(dx, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, dx).type = Material.OAK_LEAVES
+                        }
+                    }
+                }
+                4 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(0, 0, 4).apply {
+                        type = Material.OAK_LOG
+                        listOf(-2, 0, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, it).type = Material.OAK_LEAVES
+                        }
+                    }
+                    location.block.getRelative(1, 0, 3).apply {
+                        val listX = listOf(0, -1, -2)
+                        val listZ = listOf(0, 1, 2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                        getRelative(0, 0, 2).type = Material.AIR
+                    }
 
+                    location.block.getRelative(-3, 0, 0).apply {
+                        val listX = listOf(0, -1, -2)
+                        val listZ = listOf(0, 1, 2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(-4, 0, 1).apply {
+                        listOf(-2, 0, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, it).type = Material.OAK_LEAVES
+                        }
+                        getRelative(0, 0, -3).type = Material.OAK_LEAVES
+                        getRelative(1, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(2, 0, -1).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, -1).type = Material.OAK_LEAVES
+                        getRelative(-3, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(3, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, 1).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, 2).type = Material.OAK_LEAVES
+                    }
+
+                    location.block.getRelative(5, 0, 0).apply {
+                        listOf(0, 1, 2).forEach { dx ->
+                            listOf(0, 1, 2).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(6, 0, 1).apply {
+                        listOf(-2, 0, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, it).type = Material.OAK_LEAVES
+                        }
+                        getRelative(2, 0, -1).type = Material.OAK_LEAVES
+                    }
+
+                    location.block.getRelative(1, 0, -3).apply {
+                        val listX = listOf(0, 1, 2)
+                        val listZ = listOf(0, -1, -2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(2, 0, -4).apply {
+                        getRelative(0, 0, 2).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, -1).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -3).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, -2).type = Material.OAK_LEAVES
+                    }
+                }
+                5 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(-3, 0, 0).apply {
+                        val listX = listOf(0, -1, -2)
+                        val listZ = listOf(0, 1, 2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(-4, 0, 1).apply {
+                        listOf(-2, 0, 2).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, it).type = Material.OAK_LEAVES
+                        }
+                        getRelative(-3, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, 1).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, 2).type = Material.OAK_LEAVES
+                    }
+
+                    location.block.getRelative(0, 0, 4).apply {
+                        listOf(0, -1).forEach { dx ->
+                            listOf(0, -1).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                        getRelative(0, 0, 1).type = Material.OAK_LEAVES
+                        getRelative(1, 0, 1).type = Material.OAK_LEAVES
+                        getRelative(1, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                        type = Material.OAK_LOG
+                    }
+
+                    location.block.getRelative(5, 0, 0).apply {
+                        listOf(0, 1, 2).forEach { dx ->
+                            listOf(0, 1, 2).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(6, 0, 1).apply {
+                        getRelative(-2, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                    }
+
+                    location.block.getRelative(1, 0, -4).apply {
+                        val listX = listOf(0, 1)
+                        val listZ = listOf(0, -1, -2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(2, 0, -5).apply {
+                        getRelative(1, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, 0).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(-2, 0, -1).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, -2).type = Material.OAK_LEAVES
+                    }
+                }
+                8 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(1, 0, 3).apply {
+                        val listX = listOf(0, -1, -2)
+                        val listZ = listOf(0, 1, 2)
+                        listX.forEach { dx ->
+                            listZ.forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+                    location.block.getRelative(0, 0, 4).apply {
+                        getRelative(0, 0, 2).type = Material.OAK_LEAVES
+                        getRelative(-1, 0, -1).type = Material.OAK_LEAVES
+                    }
+
+                    location.block.getRelative(-4, 0, 1).apply {
+                        listOf(0, -1).forEach { dx ->
+                            listOf(0, 1).forEach { dz ->
+                                getRelative(dx, 0, dz).type = Material.OAK_LEAVES
+                            }
+                        }
+                    }
+
+                    location.block.getRelative(6, 0, 1).apply {
+                        type = Material.OAK_LEAVES
+                        listOf(-1, 0, 1).forEach {
+                            getRelative(it, 0, 0).type = Material.OAK_LEAVES
+                            getRelative(0, 0, it).type = Material.OAK_LEAVES
+                        }
+                    }
+
+                    location.block.getRelative(1, 0, -5).apply {
+                        type = Material.OAK_LEAVES
+                        getRelative(0, 0, -1).type = Material.OAK_LEAVES
+                        getRelative(0, 0, -2).type = Material.OAK_LEAVES
+                        getRelative(1, 0, 0).type = Material.OAK_LEAVES
+                    }
+                }
+                10 -> {
+                    location.apply { y += 1 }
+                    location.block.getRelative(0, 0, 4).type = Material.OAK_LEAVES
+                    location.block.getRelative(6, 0, 1).type = Material.OAK_LEAVES
+                    location.block.getRelative(1, 0, -5).type = Material.OAK_LEAVES
+                    task?.cancel()
+                }
             }
         }
     }

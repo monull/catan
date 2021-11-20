@@ -5,4 +5,5 @@ api-version: 1.17
 libraries:
   - org.jetbrains.kotlin:kotlin-stdlib:1.5.30
   - org.jetbrains.kotlin:kotlin-reflect:1.5.30
-  - io.github.monull:dev:1.0.1
+  - io.github.monun:kommand:2.6.5
+  - io.github.monun:tap:4.1.10
