@@ -51,7 +51,7 @@ class CatanScheduler(val process: CatanProcess) : Runnable {
             if (++ticks < 100) {
                 return this
             }
-            return CatanTask()
+            return CatanBuildTownTask()
         }
 
         private fun getNumberByTicks(ticks: Int): String {
@@ -64,6 +64,13 @@ class CatanScheduler(val process: CatanProcess) : Runnable {
                 else -> "${ChatColor.BOLD}${ChatColor.WHITE}START"
             }
         }
+    }
+
+    inner class CatanBuildTownTask : Task {
+        override fun execute(): Task {
+            return CatanTask()
+        }
+
     }
 
     inner class CatanTask : Task {

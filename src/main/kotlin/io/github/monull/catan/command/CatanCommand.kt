@@ -4,6 +4,7 @@ import io.github.monull.catan.CatanManager
 import io.github.monull.catan.plugin.CatanPlugin
 import io.github.monun.kommand.PluginKommand
 import io.github.monun.tap.math.toRadians
+import net.kyori.adventure.text.Component.text
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.Material
@@ -25,6 +26,12 @@ object CatanCommand {
                 then("start") {
                     executes {
                         catanManager.startProcess()
+                    }
+                }
+                then("current") {
+                    requires { catanManager.process != null }
+                    executes {
+                        feedback(text(catanManager.process!!.currentPlayer?.player?.name!!))
                     }
                 }
                 then("stop") {

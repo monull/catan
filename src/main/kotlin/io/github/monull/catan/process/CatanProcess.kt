@@ -30,12 +30,14 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
             onlinePlayers.add(catanPlayer)
         }
 
-        val randomPlayers = onlinePlayers.shuffled()
-        val size = randomPlayers.size
+        val order = arrayListOf<CatanPlayer>()
+        onlinePlayers.forEach(order::add)
+        order.shuffle()
+        val size = order.size
 
-        for (i in 0 until size - 1) {
-            val player = randomPlayers[i]
-            val next = randomPlayers[(i + 1) % size]
+        for (i in 0 until size) {
+            val player = order[i]
+            val next = order[(i + 1) % size]
             player.setNext(next)
 
             plugin.logger.info("${i + 1}. ${player.player.name}")
@@ -54,6 +56,7 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
         plugin.server.pluginManager.registerEvents(this.listener!!, plugin)
         val numberList = arrayListOf<Int>()
         for (i in 1..19) numberList += i
+
         manager.regions.forEach { region ->
             val int = numberList.random()
             numberList.remove(int)

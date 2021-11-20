@@ -47,7 +47,7 @@ class CatanManager(val plugin: CatanPlugin) {
         }
     }
 
-    private var process: CatanProcess? = null
+    var process: CatanProcess? = null
 
     fun startProcess() {
         if (process != null) return

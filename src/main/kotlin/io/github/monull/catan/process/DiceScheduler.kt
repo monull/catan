@@ -74,10 +74,16 @@ class DiceRotateScheduler(val dice: DiceScheduler, val dice1: FakeEntity, val di
     val rspeedx1 = Random.nextInt().toDouble().toRadians()
     val rspeedy1 = Random.nextInt().toDouble().toRadians()
     val rspeedz1 = Random.nextInt().toDouble().toRadians()
+    var currentX = 0.0
+    var currentY = 0.0
+    var currentZ = 0.0
 
     val rspeedx2 = Random.nextInt().toDouble().toRadians()
     val rspeedy2 = Random.nextInt().toDouble().toRadians()
     val rspeedz2 = Random.nextInt().toDouble().toRadians()
+    var currentX2 = 0.0
+    var currentY2 = 0.0
+    var currentZ2 = 0.0
 
     override fun run() {
         if (ticks <= 20) {
@@ -91,11 +97,17 @@ class DiceRotateScheduler(val dice: DiceScheduler, val dice1: FakeEntity, val di
             dice2.move(0.0, speed, 0.0)
         }
         if (++ticks <= 38) {
+            currentX += rspeedx1
+            currentY += rspeedy1
+            currentZ += rspeedz1
+            currentX2 += rspeedx2
+            currentY2 += rspeedy2
+            currentZ2 += rspeedz2
             dice1.updateMetadata<ArmorStand> {
-                headPose = EulerAngle(rspeedx1, rspeedy1, rspeedz1)
+                headPose = EulerAngle(currentX, currentY, currentZ)
             }
             dice2.updateMetadata<ArmorStand> {
-                headPose = EulerAngle(rspeedx2, rspeedy2, rspeedz2)
+                headPose = EulerAngle(currentX2, currentY2, currentZ2)
             }
         } else {
             val numbers = arrayListOf(1, 2, 3, 4, 5, 6)
