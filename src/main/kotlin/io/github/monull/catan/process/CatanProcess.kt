@@ -23,8 +23,6 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
     var currentPlayer: CatanPlayer? = null
 
     init {
-        Bukkit.getOnlinePlayers().forEach(manager.fakeEntityServer::addPlayer)
-
         Bukkit.getOnlinePlayers().filter { it.gameMode.isDamageable }.forEach { player ->
             val catanPlayer = CatanPlayer(player)
             onlinePlayers.add(catanPlayer)
@@ -94,8 +92,6 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
     }
 
     fun nextPlayer() {
-        val player = currentPlayer?.player
-
         this.currentPlayer = currentPlayer?.getNext()
         broadcastGambler()
         currentPlayer?.ready()

@@ -1,6 +1,7 @@
 package io.github.monull.catan.process
 
 import io.github.monull.catan.plugin.CatanPlugin
+import io.github.monull.catan.ready.BuildTowns
 import net.kyori.adventure.text.Component.text
 import net.kyori.adventure.title.TitlePart
 import org.bukkit.Bukkit
@@ -67,7 +68,10 @@ class CatanScheduler(val process: CatanProcess) : Runnable {
     }
 
     inner class CatanBuildTownTask : Task {
+        val buildTownsProcess: BuildTowns = BuildTowns(process.manager)
         override fun execute(): Task {
+            if (!buildTownsProcess.end) return this
+
             return CatanTask()
         }
 
