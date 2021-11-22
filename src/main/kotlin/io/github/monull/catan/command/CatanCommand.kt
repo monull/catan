@@ -157,6 +157,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                     loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
                         if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
+                        if (it == 5) {
+                            manager.addRoadGround(loc)
+                            loc.block.type = Material.GOLD_BLOCK
+                        }
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -172,6 +176,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                     loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
                         if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
+                        if (it == 5) {
+                            manager.addRoadGround(loc)
+                            loc.block.type = Material.GOLD_BLOCK
+                        }
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -193,6 +201,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                     loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
                         if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
+                        if (it == 5) {
+                            manager.addRoadGround(loc)
+                            loc.block.type = Material.GOLD_BLOCK
+                        }
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())
@@ -214,6 +226,10 @@ class HexagonScheduler(val manager: CatanManager, val loc: Location, val count: 
                     loc.block.type = Material.IRON_BLOCK
                     repeat(count) {
                         if (loc.block.type != Material.IRON_BLOCK) loc.block.type = Material.STONE
+                        if (it == 5) {
+                            manager.addRoadGround(loc)
+                            loc.block.type = Material.GOLD_BLOCK
+                        }
                         loc.add(vec)
                     }
                     vec.rotateAroundY((60.0).toRadians())

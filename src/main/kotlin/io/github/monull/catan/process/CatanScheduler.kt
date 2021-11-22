@@ -69,6 +69,7 @@ class CatanScheduler(val process: CatanProcess) : Runnable {
 
     inner class CatanBuildTownTask : Task {
         val buildTownsProcess: BuildTowns = BuildTowns(process.manager)
+
         override fun execute(): Task {
             if (!buildTownsProcess.end) return this
 

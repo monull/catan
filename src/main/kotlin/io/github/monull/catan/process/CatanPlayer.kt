@@ -10,6 +10,10 @@ class CatanPlayer(val player: Player) {
     private var next: CatanPlayer? = null
     var diceCount = 1
 
+    val roadCount = 0
+    var townCount = 0
+    val cityCount = 0
+
     val color = Bukkit.getScoreboardManager().mainScoreboard.getEntryTeam(player.name)?.color()
 
     fun ready() {

@@ -13,6 +13,7 @@ class CatanManager(val plugin: CatanPlugin) {
     var regions = arrayListOf<CatanRegion>()
     var dessert: CatanRegion? = null
     var grounds = arrayListOf<Location>()
+    var roadGrounds = arrayListOf<Location>()
 
     val fakeEntityServer = FakeEntityServer.create(plugin).apply {
         plugin.server.pluginManager.registerEvents(object: Listener {
@@ -33,7 +34,11 @@ class CatanManager(val plugin: CatanPlugin) {
     }
 
     fun registerClickableGround(loc: Location) {
-        grounds += loc
+        grounds += loc.clone()
+    }
+
+    fun addRoadGround(loc: Location) {
+        roadGrounds += loc.clone()
     }
 
     fun registerRegion(location: Location) {
