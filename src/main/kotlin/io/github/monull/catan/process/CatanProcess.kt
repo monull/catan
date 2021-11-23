@@ -49,6 +49,7 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
         val players = ArrayList<CatanPlayer>(onlinePlayers)
         this.currentPlayer = players[Random.nextInt(players.size)]
         currentPlayer?.ready()
+        println("hello")
         broadcastGambler()
 
         plugin.server.pluginManager.registerEvents(this.listener!!, plugin)
@@ -89,6 +90,7 @@ class CatanProcess(val plugin: CatanPlugin, val manager: CatanManager) {
         Bukkit.getOnlinePlayers().filter { it != currentPlayer?.player }.forEach { player ->
             player.sendTitlePart(TitlePart.SUBTITLE, text(currentPlayer?.player!!.name))
         }
+        this.currentPlayer?.player!!.sendTitlePart(TitlePart.SUBTITLE, text("당신의 차례입니다."))
     }
 
     fun nextPlayer() {
